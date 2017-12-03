@@ -304,8 +304,111 @@ is_asst with return true if assistant is in the table abd false if not.
  
   ```sql
  SELECT
- SUBSTRING('abcdefghijkl' FROM 1 FOR #) test_string
+ SUBSTRING('abcdefghijkl' FROM 1 FOR 3) test_string
  ```
+ Returns abc. 
+ Using FROM 5, starts at 5th letter and prints everything on, inclusively. Index starts at 1, not 0!
+ 
+ ```sql
+ SELECT SUBSTRING(job_title FROM 10)
+ FROM staff
+ WHERE job_title LIKE 'Assistant%'
+ ```
+ We get the words that follow assistant. Because we start from the 10th index.
+ 
+ ## Want to change the word assistant with Asst?
+ 
+  ```sql
+ SELECT OVERLAY(job_title PLACING 'Asst.' FROM 1 for 10)
+ FROM staff
+ WHERE job_title LIKE 'Assistant%'
+ ```
+ we lost the space in between Asst.Manager. We need to change the length of the string we replace from 10 to 9.
+ 
+ # filtering with regular expressions!
+ - file: regular_expressions.sql
+ 
+ ```sql
+ SELECT job_title
+ From staff
+ WHERE job_title Like '%Assistant%'
+ ```
+ With this query, we noticed different levels of assistants...
+ Let's select assistants at level 3 or 4. Similar to allows more expressive syntax. Separate III and IV by "OR" character.
+ 
+  ```sql
+ SELECT job_title
+ From staff
+ WHERE job_title SIMILAR TO '%Assistant%(III|IV)'
+ ```
+ Include list of jobs that includes the assistant 4 or 2 characters starting with I. 
+ 
+  ```sql
+ SELECT job_title
+ From staff
+ WHERE job_title SIMILAR TO '%Assistant I_'
+ ```
+ Adding the underscore is stating we only want one more character after the I. The only two options are II and IV, which
+ is why these will be the only jobs the query returns.
+ 
+ We can use square brackets as well. Jobs beginning with letters: E, P, OR S.
+ 
+  ```sql
+ SELECT job_title
+ From staff
+ WHERE job_title SIMILAR TO '[EPS]%'
+ ```
+ # Reformatting Numeric Data!
+ - file: reformat_number.sql
+ 
+ ```sql
+ SELECT department, avg(salary)
+ FROM staff
+ GROUP BY department
+ ```
+ Avg salary produces more digits than necessary! 
+ We could address this by using truncate function TRUNC. Does not round. It just ignores Decimals!
+ 
+ ```sql
+ SELECT department, trunc(avg(salary))
+ FROM staff
+ GROUP BY department
+ ```
+ 
+ Want to return the next largest integer? Use ceiling function ``` ceil(avg(salary)) ```.
+ 
+ # SUBQUERIES IN SELECT CLAUSES 
+- Sub Queries can be used in three different parts of a select statement. In the list of values returned, in the From Clause and in the Where Clause.
+
+```sql
+SELECT
+last_name, salary, department
+FROM staff
+```
+Now, because we'll have multiple select statements within a single query we'll want to make sure the database can tell which table each value comes from. So to do this, we'll use a table alias and include that alias as a prefix for each value we'll return.
+```sql
+SELECT
+s1.last_name, s1.salary, s1.department
+FROM staff s1
+```
+Now, let's compare the salarys with the avg salary. We will use a nested select operator, as I like to call it.
+
+```sql
+SELECT
+s1.last_name, s1.salary, s1.department, (SELECT round(avg(salary)) FROM staff s2 WHERE s2.department = s1.department)
+FROM staff s1
+```
+Let me explain. 
+Our inner query, calculated avg salary, but only uses rows where department is equal to department of employee we are currently looking at. You can see this adds an extra column. 
+- We use a where clause that references a table in the top level query so that the subquery knows which row is referenced!
+
+# SUBQUERIES IN FROM CLAUSES
+
+
+ 
+ 
+ 
+ 
 
 
 
