@@ -22,7 +22,7 @@ You can run this query to see information about a specific table. Once it's down
 SELECT * FROM company_divisions
 ```
 The select is a function stating you want to select something. The star means to grab all of information stored
-and company_divisions is a table that we have in our database. We want to extract information (all of it) from
+and company_divisions is a table that we have in our database. We want to extract information (all of it, hence the star) from
 a specific table. 
 
 ```sql
