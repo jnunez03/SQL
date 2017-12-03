@@ -129,8 +129,148 @@ GROUP BY gender
 ``` 
 There you have it. Go to your boss and claim you demand a higher salary! (Just kidding!)
 
-Let's move on.
+Let's move on to statistical functions!
+# Using statistics.sql file!
 
+How much money is our company spending to pay our employees? Hey! Let's sum up all the salaries in the staff table!
+```sql
+SELECT sum(salary)
+FROM staff
+``` 
+97.3 million paid per year across all staff. How much does each department pay in salary?
+
+```sql
+SELECT department, sum(salary)
+FROM staff
+GROUP BY department
+``` 
+22 rows for each of our 22 departments! What's the average?!
+
+```sql
+SELECT department, avg(salary)
+FROM staff
+GROUP BY department
+``` 
+
+Variance, Standard Deviations ?
+
+```sql
+SELECT department, var_pop(salary)
+FROM staff
+GROUP BY department
+``` 
+```sql
+SELECT department, stddev_pop(salary)
+FROM staff
+GROUP BY department
+``` 
+We get way too many decimal places though, so lets round them and say we want 2 decimal places.
+```sql
+SELECT department, round(stddev_pop(salary),2)
+FROM staff
+GROUP BY department
+``` 
+
+# Using filter_group.sql file!
+Filtering our data and grouping data.
+
+Almost like booleans! If your familiar with coding. 
+If not, its like adding clauses to our queries. Greater than, less than, equal to.
+
+## Let's see all salaries greater then $100,000, by their name and department they work in.
+
+```sql
+SELECT last_name, department, salary
+FROM staff
+WHERE
+salary > 100000
+``` 
+We used WHERE function, which is giving a restriction, or a specific request. 
+
+OR we might want to see just one department.
+just add ```WHERE department = 'Tools' ```
+It is important to add the quotation marks, because tools in the database is loaded as a CHAR VAR which is a character variable, commonly known as a string in other coding languages.
+
+If you have 2 restrictions? Just use  "AND" 
+
+```sql
+SELECT last_name, department, salary
+FROM staff
+WHERE
+salary > 100000
+AND
+department = 'Tools'
+``` 
+We want only the department of tools and only the people with high salaries.
+
+We can use OR as well! We will have some people in other departments. We will also have people in tools department with salaries lower than 100000 because we said OR. Give me this ... OR ... give me that.
+
+```sql
+SELECT last_name, department, salary
+FROM staff
+WHERE
+department = 'Tools'
+OR
+salary > 100000
+``` 
+
+ALL DEPARMENTS that begin with letter B and sum of their salaries.
+```sql
+SELECT department, sum(salary)
+FROM staff
+WHERE
+deparment LIKE 'B%'
+GROUP BY department
+``` 
+WE used the LIKE function that basically says, WHERE something looks like "this". In our case B. The percent symbol is important here. Putting it before the B will change everything. We want the word to start with B and the % says and of the other letters could be arbitrary, as long as it starts with B, we want it returned. 
+
+Beginning with letters Bo..?  ``` LIKE 'Bo%' ```
+
+Baby or Beauty?  ```LIKE 'B%y' ```
+
+# REFORMATTING data  
+- file: reformat.sql
+
+We can reformat data to get it into a consisten format. You could change state names into their abbreviations to save space and have easier convenience of use.
+
+```sql
+SELECT DISTINCT department
+FROM staff
+```
+DISTINCT allows us to return a specific in our query just once. There are many staff members in Beauty deparment. BUT
+We do not want Beauty to appear 78 times. We want it to appear once, so we use DISTINCT.
+Uppercase? Just use ``` UPPER(department) ```
+
+Job title to combine with department name?
+
+CONCAT IT MAN!
+```sql
+SELECT
+job_title || '-' || department
+FROM staff
+```
+We could give names (titles) to columns we created.
+
+```sql
+SELECT
+job_title || '-' || department title_dept
+FROM staff
+```
+USE TRIM to remove whitespaces or extra characters.
+```sql
+SELECT
+trim('   Sofware Engineer   ')
+``` 
+We cut out the leading and trailing whitespaces. 
+Check it by 
+```sql
+SELECT length('   Software Engineer   ') 
+``` 
+with 
+```sql
+SELECT length(trim('   Software Engineer   ')) 
+```
+Length was reduced! :-)
 
 
 
