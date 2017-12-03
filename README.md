@@ -243,7 +243,7 @@ Uppercase? Just use ``` UPPER(department) ```
 
 Job title to combine with department name?
 
-CONCAT IT MAN!
+CONCAT IT.
 ```sql
 SELECT
 job_title || '-' || department
@@ -403,15 +403,214 @@ Our inner query, calculated avg salary, but only uses rows where department is e
 - We use a where clause that references a table in the top level query so that the subquery knows which row is referenced!
 
 # SUBQUERIES IN FROM CLAUSES
+- file: continuation from previous.
 
 
+salary > 100000 is executive, by our assumption.
+## We would like to find the average executive salary by department.
+
+```sql
+SELECT s1.department, round(avg(s1.salary))
+FROM
+  (SELECT department, salary 
+  FROM staff
+  WHERE salary > 100000) s1
+GROUP BY s1.department
+```
+The inner SELECT is basically telling our outer SELECT to only select department and avg salary from the values that are returned from our inner select. (AFTER our FROM clause). 
  
  
+# SUBQUERIES IN WHERE CLAUSES. Useful for Comparisons within a single table.
+WHEN USING SUBQUERIES use an alias, like I used previously with s1 and s2.
+
+## Find department of person with highest salary. 
+
+```sql
+SELECT s1.department, s1.last_name, s1.salary
+FROM staff s1
+WHERE 
+s1.salary = (SELECT max(s2.salary) FROM staff s2) #( This subquery- returns max salary)
+```
+Stanley, in the grocery deparment, making good money!
+
+
+# JOINING THOSE TABLES! 
+- file: joins.sql
+When working with SQL, we will sometimes need to retrieve data from multiple tables. For example, the Staff table includes a department for each employee. Departments are organized into divisions. Since we don't keep division information in the staff table, we have to look it up somewhere else.
+
+```sql
+SELECT * FROM company_divisions  
+```
+21 rows returned. Table has 2 columns. Departments and division.
+Let's join staff and company_division.
+
+```sql
+SELECT s.last_name, s_department,cd.company_division
+FROM staff s
+JOIN company_divisions cd
+ON s.department = cd.department
+```
+Returned 953 rows, but we should have 1000.  missing 47... mhm.
+
+We use an outer join to return all rows. LEFT outer joins or right outer joins which depends on ordering of table.
+```sql
+SELECT s.last_name, s_department,cd.company_division
+FROM staff s LEFT JOIN company_divisions cd
+ON s.department = cd.department
+```
+Again, by left joining we're going to take all of the rows in the Staff table, even if there isn't a corresponding row in the Company Divisions table.
+
+```sql
+SELECT s.last_name, s_department,cd.company_division
+FROM staff s LEFT JOIN company_divisions cd
+ON s.department = cd.department
+WHERE cd.company_division is NULL
+```
+They all come from the books department. 
+
+# Creating a View
+- file: groupings.sql
+
+```sql
+SELECT s.*, cd.company_division, cr.company_regions
+FROM staff s
+LEFT JOIN company_divisions cd
+ON s.department = cd.department
+LEFT JOIN
+company_regions cr
+ON s.region_id = cr.region_id
+``` 
+What we have here is a select statement that uses two left joins and it selects all the rows from the staff table, it selects the company division, and the company regions name. It returns it as a single table.
+Rather than retyping this if we want to see it, we create a view.
+
+```sql
+CREATE VIEW staff_div_reg AS
+SELECT s.*, cd.company_division, cr.company_regions
+FROM staff s
+LEFT JOIN company_divisions cd
+ON s.department = cd.department
+LEFT JOIN
+company_regions cr
+ON s.region_id = cr.region_id
+``` 
+Want to view it?
+```sql
+SELECT count(*)
+FROM staff_div_reg
+``` 
+We get a 1000. Check.
+# GROUPING and Totaling
+```sql
+SELECT company_region, count(*)
+FROM staff_div_reg
+GROUP BY company_region
+ORDER BY company_region # so we get it alphabetically.
+``` 
+If we want counts by both region and division. Use grouping sets.
+```sql
+SELECT company_division, company_region, count(*)
+FROM staff_div_reg
+GROUP BY 
+GROUPING SETS (company_division,company_region)
+ORDER BY company_region, company_division # so we get it alphabetically.
+``` 
+We also get totals by company division. We also get 47, with no name. That was the books department. It has no division.
+Let's add gender.
+```sql
+SELECT company_division, company_region,gender,count(*)
+FROM staff_div_reg
+GROUP BY 
+GROUPING SETS (company_division, company_region, gender)
+ORDER BY company_region, company_division, gender # so we get it alphabetically.
+``` 
+ # WAYS TO GROUP DATA: ROLLUPS AND CUBES.
+ - file: rollup-cube
  
+ Now first, let's modify the staff division region view we created to include country code. To do that, I'm going to use the command CREATE OR REPLACE VIEW, and as the name implies, if this view doesn't exist, it will simply create it. If there is a version of this view that already exists, it'll replace that version with the version I'm about to specify.
  
+ ```sql
+ CREATE OR REPLACE VIEW staff_div_reg_country AS
+ SELECT s.*, cd.company_division, cr.company_regions, cr.country
+ FROM staff s
+ LEFT JOIN company_divisions cd
+ ON s.department = cd.department
+ LEFT JOIN company_regions cr
+ ON s.region_id = cr.region_id
+ ```
+ Let's select num of employees by company, region, country.
+ 
+```sql
+SELECT company_regions, country, count(*)
+FROM staff_div_reg_country
+GROUP BY company_regions, country
+ORDER BY country, company_regions
+```
+Want totals for each country, use rollup in group by clause.
+```sql
+SELECT company_regions, country, count(*)
+FROM staff_div_reg_country
+GROUP BY 
+ROLLUP(country,company_regions)
+ORDER BY country, company_regions
+```
+ Now, for more advanced breakdowns, we can use the CUBE operation on the GROUP BY clause. This tells SQL to create all possible combinations of sets of grouping columns. For example, for each division, show results by region. So we will move the ORDER BY here and we'll remove ROLLUP, and we'll specify CUBE, and we're going to use not country, but we're going to use a cube of company_division.
+ 
+ ```sql
+SELECT company_division, company_regions, count(*)
+FROM staff_div_reg_country
+GROUP BY 
+CUBE(company_division, company_regions)
+```
+Your cube needs to match your select for table names.
 
 
+# FETCH FIRST. 
+- file: fetch_first.sql
 
+Working with large data sets, we might want to list employees with top ten salaries. 
+Now, what I'm going to do is add a clause called fetch first. Now, fetch first works with the order by clause to sort and limit results. Fetch first is like the limit keyword, in that only a fixed number of rows are returned, but with fetch first, the ordering is performed before choosing the rows to return. So, I'll specify fetch first, 10 rows only, so this will return only 10 rows.
+```sql
+SELECT last_name, job_title, salary
+FROM staff
+ORDER BY salary DESC #DESC is return values in descending order
+FETCH FIRST
+10 ROWS ONLY
+```
+LIMIT would limit the rows and then perform operations (DESC), which is not what we want. 
+
+Let's build aggregation query.
+```sql
+SELECT company_division, count(*)
+FROM staff_div_reg_country
+GROUP BY company_division
+ORDER BY count(*)
+```
+Let's turn this into descending order
+```sql
+SELECT company_division, count(*)
+FROM staff_div_reg_country
+GROUP BY company_division
+ORDER BY count(*) DESC
+FETCH FIRST
+5 ROWS ONLY
+```
+
+# Window Functions and Ordered Data.
+- file: window.sql
+
+Window functions allow us to make SQL statements about rows that are related to the current row during processing. This is somewhat like the way subqueries work. They let us do an operation that's related to the current row that SQL is processing. For example, instead of using a subquery to calculate an average salary for an employee's department, we can use a windowing function on rows called OVER PARTITION.
+
+```sql
+SELECT department, last_name, salary, avg(salary) OVER (PARTITION BY department)
+FROM staff
+```
+So again, what I have is I've selected department, last_name, and salary, and I'm going to also display an average of salary for each department, and that's what the OVER PARTITION BY statement does.
+
+```sql
+SELECT company_region, last_name, salary, min(salary) OVER (PARTITION BY company_region)
+FROM staff_div_reg
+```
+Min salary that is earned by based on region, not department. :-)
 
 
 
