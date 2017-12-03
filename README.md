@@ -612,9 +612,60 @@ FROM staff_div_reg
 ```
 Min salary that is earned by based on region, not department. :-)
 
+# Window Functions
+We could also select a set of attributes grouped by department and include the first value by department in each row using something called The First Value Function. 
 
+```sql
+SELECT department, last_name, salary,
+first_value(salary) OVER (PARTITION BY department ORDER BY salary DESC)
+FROM staff
+```
+I want the first value in the list of salaries, where its paritioned by department and in descending salary order.
+In this case, first_value is acting like a max value, its the first value in descending salary list.
 
+We could order by last name.
+```sql
+SELECT department, last_name, salary,
+first_value(salary) OVER (PARTITION BY department ORDER BY last_name)
+FROM staff
+```
+first_value is the salary of the first person in the table, after names are in alphabetical order.
 
+# Window Functions: Rank.
+It works with parition function to order results and assing a rank value based on the way paritition data is sorted.
+```sql
+SELECT department, last_name, salary,
+rank() OVER (PARTITION BY department ORDER BY salary DESC)
+FROM staff
+```
+Salaries are sorted and rank lists a number from 1 to the number of employees in the department. Ranking restarts by department and ranks by salary.
+
+# LAG and LEAD
+- file: lead_lag.sql
+
+We can reference rows RELATIVE to the currently processed rows. 
+```sql
+SELECT department, last_name, salary,
+lag(salary) OVER (PARTITION BY department ORDER BY salary DESC)
+FROM staff
+```
+lag refers to the row that came before a currently processed row.
+```sql
+SELECT department, last_name, salary,
+lead(salary) OVER (PARTITION BY department ORDER BY salary DESC)
+FROM staff
+```
+Lead will show rows that came after a currently processed row. 
+
+# NTILE functions.
+Sometimes we want to group rows into some number of buckets or ordered groups. We can use the ntiles function to assign buckets to rows. This allows us to easily calculate statistics like quartiles over sets of rows.
+
+Ntile takes a number, and it will be the number of buckets that we want or ordered groups that we want
+```sql
+SELECT department, last_name, salary
+ntile(4) OVER (PARTITION BY department ORDER BY salary DESC)
+FROM staff
+```
 
 
 
