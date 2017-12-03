@@ -6,7 +6,7 @@ You could use Mysql, or other sorts of databases that run sql queries. It doesn'
 However, there are slight differences in each and I suggest doing research to figure out which one is 
 best for you and your situation.
 
-Wanna download it? Go [here](https://www.postgresql.org) .
+Wanna download it? Go [here.](https://www.postgresql.org)
 
 Upon setup, you will need to create a password. *DO NOT FORGET THAT PASSWORD*. You will need it to be able to use pg admin.
 
