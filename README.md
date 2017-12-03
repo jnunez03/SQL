@@ -612,7 +612,7 @@ FROM staff_div_reg
 ```
 Min salary that is earned by based on region, not department. :-)
 
-# Window Functions
+# Window Functions.
 We could also select a set of attributes grouped by department and include the first value by department in each row using something called The First Value Function. 
 
 ```sql
@@ -640,7 +640,7 @@ FROM staff
 ```
 Salaries are sorted and rank lists a number from 1 to the number of employees in the department. Ranking restarts by department and ranks by salary.
 
-# LAG and LEAD
+# LAG and LEAD.
 - file: lead_lag.sql
 
 We can reference rows RELATIVE to the currently processed rows. 
@@ -669,7 +669,8 @@ FROM staff
 Top earners are assigned value 1.  Etc. ntile resets with each department.
 
 
-# That's all. 
+# That's all! 
+###### Pat yourself on the back. Give yourself a hug. Whatever suits you!
 Thanks for following along. You have now learned ALOT. 
 Remember:
 1) Don't underestimate time needed to collect and prepare data.
