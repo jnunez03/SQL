@@ -76,20 +76,20 @@ Now we know that the number of males are 504 and females are 496.
 
 Anyways...let's keep going.
 
-## How many employees do we have per deparment? (TRY IT YOURSELF FIRST, SEE IF YOU CAN IT!)
+## How many employees do we have per deparment? 
+- - - - - - - - - - - - - - - - - - - - - - -
+(TRY IT YOURSELF FIRST, SEE IF YOU CAN IT!)
 
--- ANSWER BELOW
-.|..
-.|...
-.|..
-.|..
-.|..
-.|..
-.|..
-.|..
-.|.
-.|...
-.|.
+-- ANSWER BELOW- - - - - - - - - - - - - - - - - - - - - - -
+- - - - - - - - - - - - - - - - - - - - - - -
+- - - - - - - - - - - - - - - - - - - - - - -
+- - - - - - - - - - - - - - - - - - - - - - -
+- - - - - - - - - - - - - - - - - - - - - - -- - - - - - - - - - - - - - - - - - - - - - -
+- - - - - - - - - - - - - - - - - - - - - - -- - - - - - - - - - - - - - - - - - - - - - -- - - - - - - - - - - - - - - - - - - - - - -
+- - - - - - - - - - - - - - - - - - - - - - -
+- - - - - - - - - - - - - - - - - - - - - - -
+
+
 
 
 --
