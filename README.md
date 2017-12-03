@@ -278,8 +278,34 @@ SELECT length(trim('   Software Engineer   '))
 ```
 Length was reduced! :-)
 
+Let's list all employees with title that begins with word assistant.
+```sql
+SELECT job_title
+FROM staff
+WHERE job_title like 'Assistant%'
+```
+Let's add a boolean, that will replace the WHERE clause
+```sql
+SELECT job_title, (job_title like '%Assistant%') is_asst
+FROM staff
+```
+I added the first % before Assistant to get all queries where assistant might be the second word.
+is_asst with return true if assistant is in the table abd false if not. 
 
+# Extract those strings! 
+- file: extract_string.sql
 
+ ```sql
+ SELECT
+ 'abcdefghijkl' test_string
+ ```
+ 12 character string made. 
+ Replace parts of a string with SUBSTRING function.
+ 
+  ```sql
+ SELECT
+ SUBSTRING('abcdefghijkl' FROM 1 FOR #) test_string
+ ```
 
 
 
