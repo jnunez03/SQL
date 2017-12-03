@@ -104,7 +104,36 @@ Select department! Select their Count as well (for all employees, hence the star
 THESE VALUES SELECTED WILL BE RETURNED!
 NOW RETURN THEM TO ME BY GROUPING THEM BY THEIR SPECIFIC DEPARTMENT! 
 
-Hows that for an all caps explanation? 22 rows for all 22 departments. We are too clever aren't we? 
+Hows that for an all caps explanation? 22 rows for all 22 departments. We are too clever, aren't we?! 
+
+## What is the highest salary of our employess..? 
+```sql
+SELECT max(salary) FROM staff
+``` 
+Yes! Very clever of you. Just change max with min and there you have it. The lowest salary will be returned! 
+max is just one of the many "math" functions you could run.
+
+Wanna see them at the same time? BUT you also want to see them based on employees in each department? You must be a very efficient person.
+
+```sql
+SELECT department, min(salary), max(salary)
+FROM staff
+GROUP BY department
+``` 
+Oh you must have wanted gender too? 
+
+```sql
+SELECT gender, min(salary), max(salary)
+FROM staff
+GROUP BY gender
+``` 
+There you have it. Go to your boss and claim you demand a higher salary! (Just kidding!)
+
+Let's move on.
+
+
+
+
 
 
 
