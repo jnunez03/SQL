@@ -666,6 +666,15 @@ SELECT department, last_name, salary
 ntile(4) OVER (PARTITION BY department ORDER BY salary DESC)
 FROM staff
 ```
+Top earners are assigned value 1.  Etc. ntile resets with each department.
 
 
+# That's all. 
+Thanks for following along. You have now learned ALOT. 
+Remember:
+1) Don't underestimate time needed to collect and prepare data.
+2) Remember that an inner jointed SQL will return rows only when both tables have corresponding rows. If you want all the rows from one table even if there is not a corresponding row in the other table, then use an outer join.
+3) Cubes, rollups, and grouping sets are useful when you need to produce cross-tabulations and subtotals.
+4) Window Functions help us focus on sets of related rows such as all rows in a single department or company region. Window functions can help simplify select statements that would otherwise require subqueries.
+5) SQL statements get complicated especially when using joins, subqueries, and complicated grouping and filtering clauses. Use views to capture this logic so that you can query the view instead of having to repeatedly type in long SQL statements. It's easy to make a mistake when typing in such statements so use views that you can test and verify.
 
