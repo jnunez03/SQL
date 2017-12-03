@@ -95,7 +95,7 @@ Anyways...let's keep going.
 
 
 
---
+
 
 ```sql
 SELECT department, count(*) FROM staff GROUP BY department
