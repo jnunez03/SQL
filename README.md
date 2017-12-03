@@ -7,6 +7,7 @@ However, there are slight differences in each and I suggest doing research to fi
 best for you and your situation.
 
 Wanna download it? Go [here.](https://www.postgresql.org)
+Great [website](https://sqlzoo.net) to learn many commands.
 
 Upon setup, you will need to create a password. *DO NOT FORGET THAT PASSWORD*. You will need it to be able to use pg admin.
 
