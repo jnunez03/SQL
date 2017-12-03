@@ -249,6 +249,8 @@ SELECT
 job_title || '-' || department
 FROM staff
 ```
+Concatenation is basically adding two things together without spaces in between. Concatenating String and HI = StringHI
+So we want to separate them with a dash, hence the || '-' ||. 
 We could give names (titles) to columns we created.
 
 ```sql
