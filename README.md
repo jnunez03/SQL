@@ -120,7 +120,7 @@ SELECT department, min(salary), max(salary)
 FROM staff
 GROUP BY department
 ``` 
-Oh you must have wanted gender too? 
+Oh you must have wanted it specific to gender too? 
 
 ```sql
 SELECT gender, min(salary), max(salary)
