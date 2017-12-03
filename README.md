@@ -79,17 +79,17 @@ Anyways...let's keep going.
 ## How many employees do we have per deparment? (TRY IT YOURSELF FIRST, SEE IF YOU CAN IT!)
 
 -- ANSWER BELOW
-|
-|
-|
-|
-|
-|
-|
-|
-|
-|
-|
+.|..
+.|...
+.|..
+.|..
+.|..
+.|..
+.|..
+.|..
+.|.
+.|...
+.|.
 
 
 --
