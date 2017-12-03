@@ -228,7 +228,7 @@ Beginning with letters Bo..?  ``` LIKE 'Bo%' ```
 
 Baby or Beauty?  ```LIKE 'B%y' ```
 
-# REFORMATTING data  
+# REFORMATTING data.  
 - file: reformat.sql
 
 We can reformat data to get it into a consisten format. You could change state names into their abbreviations to save space and have easier convenience of use.
@@ -325,7 +325,7 @@ is_asst with return true if assistant is in the table abd false if not.
  ```
  we lost the space in between Asst.Manager. We need to change the length of the string we replace from 10 to 9.
  
- # filtering with regular expressions!
+ # Filtering with regular expressions!
  - file: regular_expressions.sql
  
  ```sql
@@ -377,7 +377,7 @@ is_asst with return true if assistant is in the table abd false if not.
  
  Want to return the next largest integer? Use ceiling function ``` ceil(avg(salary)) ```.
  
- # SUBQUERIES in SELECT CLAUSES 
+ # SUBQUERIES in SELECT CLAUSES.
 - Sub Queries can be used in three different parts of a select statement. In the list of values returned, in the From Clause and in the Where Clause.
 
 ```sql
@@ -402,7 +402,7 @@ Let me explain.
 Our inner query, calculated avg salary, but only uses rows where department is equal to department of employee we are currently looking at. You can see this adds an extra column. 
 - We use a where clause that references a table in the top level query so that the subquery knows which row is referenced!
 
-# SUBQUERIES in FROM CLAUSES
+# SUBQUERIES in FROM CLAUSES.
 - file: continuation from previous.
 
 
@@ -468,7 +468,7 @@ WHERE cd.company_division is NULL
 ```
 They all come from the books department. 
 
-# Creating a View
+# Creating a View.
 - file: groupings.sql
 
 ```sql
@@ -499,7 +499,7 @@ SELECT count(*)
 FROM staff_div_reg
 ``` 
 We get a 1000. Check.
-# GROUPING and Totaling
+# Grouping and Totaling.
 ```sql
 SELECT company_region, count(*)
 FROM staff_div_reg
