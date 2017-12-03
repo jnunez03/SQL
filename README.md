@@ -261,6 +261,7 @@ SELECT
 job_title || '-' || department title_dept
 FROM staff
 ```
+title_dept becomes the name of our column returned.
 USE TRIM to remove whitespaces or extra characters.
 ```sql
 SELECT
