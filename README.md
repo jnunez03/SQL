@@ -377,7 +377,7 @@ is_asst with return true if assistant is in the table abd false if not.
  
  Want to return the next largest integer? Use ceiling function ``` ceil(avg(salary)) ```.
  
- # SUBQUERIES IN SELECT CLAUSES 
+ # SUBQUERIES in SELECT CLAUSES 
 - Sub Queries can be used in three different parts of a select statement. In the list of values returned, in the From Clause and in the Where Clause.
 
 ```sql
@@ -402,7 +402,7 @@ Let me explain.
 Our inner query, calculated avg salary, but only uses rows where department is equal to department of employee we are currently looking at. You can see this adds an extra column. 
 - We use a where clause that references a table in the top level query so that the subquery knows which row is referenced!
 
-# SUBQUERIES IN FROM CLAUSES
+# SUBQUERIES in FROM CLAUSES
 - file: continuation from previous.
 
 
@@ -420,7 +420,7 @@ GROUP BY s1.department
 The inner SELECT is basically telling our outer SELECT to only select department and avg salary from the values that are returned from our inner select. (AFTER our FROM clause). 
  
  
-# SUBQUERIES IN WHERE CLAUSES. Useful for Comparisons within a single table.
+# SUBQUERIES in WHERE CLAUSES. Useful for Comparisons within a single table.
 WHEN USING SUBQUERIES use an alias, like I used previously with s1 and s2.
 
 ## Find department of person with highest salary. 
@@ -436,7 +436,7 @@ Stanley, in the grocery deparment, making good money!
 
 # JOINING THOSE TABLES! 
 - file: joins.sql
-When working with SQL, we will sometimes need to retrieve data from multiple tables. For example, the Staff table includes a department for each employee. Departments are organized into divisions. Since we don't keep division information in the staff table, we have to look it up somewhere else.
+- When working with SQL, we will sometimes need to retrieve data from multiple tables. For example, the Staff table includes a department for each employee. Departments are organized into divisions. Since we don't keep division information in the staff table, we have to look it up somewhere else.
 
 ```sql
 SELECT * FROM company_divisions  
