@@ -1,4 +1,4 @@
-# A place to learn some .. *DRUM ROLL* .. SQL! 
+# A place to learn some SQL! 
 
 
 Now, I particularly use PostgreSQL, using pgAdmin 4 dashboard.
