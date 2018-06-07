@@ -13,7 +13,7 @@ Upon setup, you will need to create a password. *DO NOT FORGET THAT PASSWORD*. Y
 
 
 ![alt text](https://thumbs.gfycat.com/PeacefulThoroughBrahmancow-size_restricted.gif)
-Let's go....
+- Let's go....
 
 
 
