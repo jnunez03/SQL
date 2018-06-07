@@ -12,7 +12,7 @@ Here's a great [website](https://sqlzoo.net) to learn many commands.
 Upon setup, you will need to create a password. *DO NOT FORGET THAT PASSWORD*. You will need it to be able to use pg admin.
 
 
-![alt text](https://raw.githubusercontent.com/username/projectname/branch/path/to/img.png)
+![alt text](https://thumbs.gfycat.com/PeacefulThoroughBrahmancow-size_restricted.gif)
 Let's go....
 
 
