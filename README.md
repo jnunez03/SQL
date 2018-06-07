@@ -681,4 +681,5 @@ Remember:
 3) Cubes, rollups, and grouping sets are useful when you need to produce cross-tabulations and subtotals.
 4) Window Functions help us focus on sets of related rows such as all rows in a single department or company region. Window functions can help simplify select statements that would otherwise require subqueries.
 5) SQL statements get complicated especially when using joins, subqueries, and complicated grouping and filtering clauses. Use views to capture this logic so that you can query the view instead of having to repeatedly type in long SQL statements. It's easy to make a mistake when typing in such statements so use views that you can test and verify.
+6) Enjoy coding!
 
